@@ -132,8 +132,22 @@ function detectBrowserLinux() {
   return null;
 }
 
+// `FIGMA_BROWSER=/path/to/chrome` pins Browser Mode to a specific binary —
+// a Chromium that is not on PATH or not in the lists above (a Playwright
+// download, a portable build, a canary channel). Returns null when the env var
+// is unset or points at a file that does not exist, so detection falls through.
+export function browserFromEnv(env = process.env) {
+  const p = (env.FIGMA_BROWSER || '').trim();
+  if (!p) return null;
+  if (!existsSync(p)) return null;
+  const base = p.split(/[\\/]/).pop() || p;
+  return { name: base.replace(/\.exe$/i, '') || 'Browser', path: p };
+}
+
 // Detect an installed Chromium-family browser, or null if none is found.
 export function detectBrowser() {
+  const pinned = browserFromEnv();
+  if (pinned) return pinned;
   if (PLATFORM === 'darwin') return detectBrowserMac();
   if (PLATFORM === 'win32') return detectBrowserWindows();
   return detectBrowserLinux();
@@ -287,10 +301,21 @@ export function getFigmaVersion() {
   return 'unknown';
 }
 
+// Process names of the Figma Desktop main process per platform. Matched
+// exactly (`pgrep -x`), not by substring: `pgrep -f Figma` also matched the
+// `sh -c "pgrep -f Figma"` shell that ran it (and any path containing
+// "figma", such as this repo), so `diagnose` always reported Figma as running.
+const FIGMA_PROCESS_NAMES = {
+  darwin: ['Figma'],
+  linux: ['figma', 'figma-linux', 'Figma']
+};
+
 export function isFigmaRunning() {
   if (PLATFORM === 'darwin' || PLATFORM === 'linux') {
-    const ps = execSync('pgrep -f Figma 2>/dev/null || true', { encoding: 'utf8' });
-    return ps.trim().length > 0;
+    return FIGMA_PROCESS_NAMES[PLATFORM].some(name => {
+      const ps = execSync(`pgrep -x ${name} 2>/dev/null || true`, { encoding: 'utf8' });
+      return ps.trim().length > 0;
+    });
   } else if (PLATFORM === 'win32') {
     const ps = execSync('tasklist /FI "IMAGENAME eq Figma.exe" 2>nul', { encoding: 'utf8' });
     return ps.includes('Figma.exe');

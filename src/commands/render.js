@@ -491,7 +491,9 @@ program
     try {
       const figmaVersion = getFigmaVersion();
       const major = parseInt(figmaVersion.split('.')[0]);
-      if (major >= 126) {
+      if (!Number.isFinite(major)) {
+        console.log(chalk.gray('○ Figma version unknown (not detectable on this platform)'));
+      } else if (major >= 126) {
         console.log(chalk.yellow(`⚠ Figma ${figmaVersion} (126+ blocks remote debugging by default)`));
       } else {
         console.log(chalk.green(`✓ Figma ${figmaVersion}`));
@@ -539,7 +541,12 @@ program
     // then show up in every user's `npm audit`. `npx --yes` fetches it the
     // first time a FigJam export actually needs it.
     try {
-      execSync('which figma-use 2>/dev/null || where figma-use 2>nul', { encoding: 'utf8' });
+      // Platform-specific lookup: running the Windows `where … 2>nul` fallback
+      // on macOS/Linux created a stray file literally named `nul` in the cwd.
+      const lookup = process.platform === 'win32'
+        ? 'where figma-use 2>nul'
+        : 'command -v figma-use 2>/dev/null';
+      execSync(lookup, { encoding: 'utf8', stdio: 'pipe' });
       console.log(chalk.green('✓ figma-use installed (used by FigJam export)'));
     } catch {
       console.log(chalk.yellow('○ figma-use not in PATH (FigJam export fetches it via npx)'));

@@ -448,13 +448,22 @@ program
 program
   .command('status')
   .description('Check connection to Figma (CDP) AND the local daemon')
-  .action(() => {
-    // Check if first run
+  .action(async () => {
+    // Check if first run. Browser Mode never sets `patched`, and the debug
+    // port can be live before the daemon is up — so only send people to the
+    // wizard when nothing (patch, daemon, CDP endpoint) is reachable.
     const config = loadConfig();
-    if (!config.patched && !isDaemonRunning()) {
-      console.log(chalk.yellow('\n⚠ First time? Run the setup wizard:\n'));
-      console.log(chalk.cyan('  figma-ds-cli init\n'));
-      return;
+    if (!config.patched && !config.browser && !isDaemonRunning()) {
+      let cdpUp = false;
+      try {
+        const res = await fetch(`http://127.0.0.1:${getCdpPort()}/json/version`, { signal: AbortSignal.timeout(1500) });
+        cdpUp = res.ok;
+      } catch {}
+      if (!cdpUp) {
+        console.log(chalk.yellow('\n⚠ First time? Run the setup wizard:\n'));
+        console.log(chalk.cyan('  figma-ds-cli init\n'));
+        return;
+      }
     }
     figmaUse('status');
     // The CDP-side "Connected to Figma" line above only tells half the story.

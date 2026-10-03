@@ -259,6 +259,7 @@ Shape types: `ROUNDED_RECTANGLE`, `RECTANGLE`, `ELLIPSE`, `DIAMOND`, `TRIANGLE_U
 ```bash
 node src/index.js connect                  # Connect (Yolo Mode)
 node src/index.js connect --safe           # Connect (Safe Mode, plugin)
+node src/index.js connect --browser        # Connect (Browser Mode, Chromium via CDP)
 node src/index.js daemon status            # Check daemon status
 node src/index.js daemon status --debug    # Detailed token & connection info
 node src/index.js daemon diagnose          # Full diagnostic (troubleshooting)
@@ -269,6 +270,14 @@ node src/index.js daemon stop              # Stop daemon
 node src/index.js daemon reconnect         # Reconnect to Figma
 node src/index.js files                    # List open Figma files (JSON)
 ```
+
+Environment variables:
+
+| Variable | Effect |
+|---|---|
+| `FIGMA_PORT=9333` | CDP port Figma / the browser listens on (default 9222; `--port` flag does the same) |
+| `FIGMA_FILE="Name"` | Target a specific open file when several are open |
+| `FIGMA_BROWSER=/path/to/chrome` | Browser Mode: use this Chromium binary instead of auto-detecting one |
 
 ### Troubleshooting Auth Errors
 

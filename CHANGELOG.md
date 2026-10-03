@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- `diagnose` always reported "Figma is running" on macOS and Linux: the `pgrep -f Figma` check matched the shell that ran it. It now matches the Figma process by exact name
+- `diagnose` created a stray file literally named `nul` in the current folder on macOS and Linux (the Windows-only `where figma-use 2>nul` fallback ran everywhere)
+- `diagnose` printed "✓ Figma unknown" when the version is not detectable; it now says so instead of a green check
+- `status` sent people to the setup wizard even when the remote-debugging port was already live (Browser Mode before the daemon starts, or a hand-launched Figma). It now probes the port first
+
+### Added
+
+- `FIGMA_BROWSER=/path/to/chrome` pins Browser Mode to a specific Chromium binary (a Playwright download, a portable build, a canary channel) instead of auto-detecting one
+
 ## 2.2.5 (2026-09-26)
 
 ### Fixed

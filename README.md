@@ -120,6 +120,12 @@ Cursor builds it in Figma instantly.
 
 ---
 
+## Where it has to run
+
+figma-cli talks to Figma Desktop on **the same computer** over a local debug port. That means the AI assistant driving it also has to run on that computer: Claude Code in a terminal, the Claude Desktop app, or `claude remote-control` started inside this folder (which then shows up in the Claude app on your phone or the web). A Claude Code session running in the cloud can set the project up, run its tests and improve it, but it cannot reach the Figma Desktop on your laptop.
+
+---
+
 ## How it connects to Figma: Yolo, Browser, or Safe mode
 
 figma-cli talks to Figma in one of three ways. Claude picks one during setup , here's what they mean, so you know what's happening:
@@ -143,6 +149,14 @@ figma-cli talks to Figma in one of three ways. Claude picks one during setup , h
 - Tell Claude *"connect to Figma in safe mode"*.
 
 **All three do exactly the same things.** Unsure? Use Yolo. Want nothing changed on your Figma app but still want the fast direct path? Use **Browser**. Prefer the official plugin route? Use Safe. You can switch anytime , just ask Claude.
+
+### Pick the browser yourself (advanced)
+
+Browser Mode auto-detects Chrome, Edge, Brave or Chromium. To use a specific binary instead (a Playwright-downloaded Chromium, a portable build, a canary channel), point `FIGMA_BROWSER` at it:
+
+```bash
+FIGMA_BROWSER="/opt/pw-browsers/chromium" figma-cli connect --browser
+```
 
 ### Custom debug port (advanced)
 Yolo and Browser mode both talk to Figma over CDP on port **9222** by default. If something else on your machine already uses that port (another Chrome with remote debugging, a browser automation tool), point figma-cli at a different one:
