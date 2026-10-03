@@ -38,6 +38,18 @@ It works with real, editable Figma , actual frames, components, variants and var
 
 ---
 
+## Fastest setup (macOS / Linux): one command
+
+Open Terminal and paste:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/AghisSs/figma-cli/main/setup.sh | bash
+```
+
+It checks for git and Node, clones this repo into `~/figma-cli`, runs `npm install`, and if Claude Code is installed it opens it in that folder and asks it to connect to Figma. Have Figma Desktop open with a design file first. Nothing is changed in Figma until Claude runs `connect`. Set `FIGMA_CLI_DIR` to install somewhere else, or `FIGMA_CLI_NO_LAUNCH=1` to skip opening Claude.
+
+---
+
 ## Setup , let your AI do it for you
 
 You don't install this by hand. You use an **AI coding assistant** , **Claude Code** (recommended, what most people use) or **Cursor** , point it at this project, and ask it to set everything up.
