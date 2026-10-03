@@ -72,6 +72,6 @@ figma-cli blocks create dashboard-01   # pre-built dashboard layout
 ## Installation
 figma-cli is a Node CLI (Node ≥ 18) that talks to Figma Desktop locally. If the
 `figma-cli` binary is missing, get the project from
-https://github.com/silships/figma-cli and run `npm install` in it, then invoke it
+https://github.com/AghisSs/figma-cli and run `npm install` in it, then invoke it
 as `node src/index.js <command>` (or link it as `figma-cli`). Full command
 reference and JSX docs live in that repo's README.md and REFERENCE.md.

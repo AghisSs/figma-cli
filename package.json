@@ -25,11 +25,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/silships/figma-cli.git"
+    "url": "git+https://github.com/AghisSs/figma-cli.git"
   },
   "homepage": "https://intodesignsystems.com",
   "bugs": {
-    "url": "https://github.com/silships/figma-cli/issues"
+    "url": "https://github.com/AghisSs/figma-cli/issues"
   },
   "scripts": {
     "test": "node --test tests/*.test.js",

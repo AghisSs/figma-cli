@@ -6,7 +6,7 @@
 
 **Location:** `/Users/sil/claude/figma-cli`
 **npm package:** `figma-ds-cli` (v1.1.0)
-**GitHub:** https://github.com/silships/figma-cli
+**GitHub:** https://github.com/AghisSs/figma-cli (fork of https://github.com/silships/figma-cli)
 
 ## Key Commands for Claude
 

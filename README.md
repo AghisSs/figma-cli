@@ -1,5 +1,7 @@
 # figma-cli
 
+> This is [AghisSs](https://github.com/AghisSs)'s working copy of [silships/figma-cli](https://github.com/silships/figma-cli) by Sil Bormüller, with fixes listed in [CHANGELOG.md](CHANGELOG.md) under *Unreleased*. All credit for the tool goes upstream.
+
 <p align="center">
   <a href="https://www.intodesignsystems.com/"><img src="https://img.shields.io/badge/Into_Design_Systems-intodesignsystems.com-ff6b35" alt="Into Design Systems"></a>
   <img src="https://img.shields.io/badge/Figma-Desktop-purple" alt="Figma Desktop">
@@ -49,7 +51,7 @@ You don't install this by hand. You use an **AI coding assistant** , **Claude Co
 ### 2. Get this project onto your computer
 Don't know git? No problem. Open Claude Code anywhere and paste:
 
-> "Download the figma-cli project from https://github.com/silships/figma-cli into a folder in my home directory, then go into it."
+> "Download the figma-cli project from https://github.com/AghisSs/figma-cli into a folder in my home directory, then go into it."
 
 (Or, if you prefer: click the green **Code** button on the GitHub page → **Download ZIP** → unzip it.)
 
@@ -78,7 +80,7 @@ Claude Code learns the figma-cli workflow in *any* project (not just this one) a
 a two-line install:
 
 ```
-/plugin marketplace add silships/figma-cli
+/plugin marketplace add AghisSs/figma-cli
 /plugin install figma-cli@intodesignsystems
 ```
 
@@ -101,7 +103,7 @@ Prefer **Cursor**? It works exactly the same , the CLI controls Figma Desktop, n
 ### 2. Tell Cursor to install it , one line
 Open Cursor in any folder, open the chat (the Agent), and paste:
 
-> **"Install github.com/silships/figma-cli and connect it to my Figma."**
+> **"Install github.com/AghisSs/figma-cli and connect it to my Figma."**
 
 Cursor downloads the project, installs it, sets up its own rules so it knows how to drive it, and connects to your open Figma Desktop. You watch , you don't type commands.
 

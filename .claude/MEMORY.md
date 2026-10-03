@@ -57,6 +57,6 @@
 - Component property names get `#uniqueId` suffix (e.g., `ButtonText#0:1`)
 
 ## Remote Setup
-- `origin` = figma-cli-private (github.com/silships/figma-cli-private)
-- `public` = figma-cli (github.com/silships/figma-cli)
+- `origin` = github.com/AghisSs/figma-cli (this fork)
+- upstream = github.com/silships/figma-cli (Sil Bormüller's original; pull fixes from there)
 - Always push to both
