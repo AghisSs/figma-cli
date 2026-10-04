@@ -60,10 +60,19 @@ cat <<MSG
   Next: open Figma Desktop with a design file, then let Claude connect.
 MSG
 
-if [ -t 0 ] && command -v claude >/dev/null 2>&1 && [ -z "${FIGMA_CLI_NO_LAUNCH:-}" ]; then
+# When run as `curl … | bash`, stdin is the pipe, so test stdout for a terminal
+# and hand Claude the real tty so it can take over the session.
+if [ -t 1 ] && [ -r /dev/tty ] && command -v claude >/dev/null 2>&1 && [ -z "${FIGMA_CLI_NO_LAUNCH:-}" ]; then
   say "Claude Code found. Starting it in $TARGET"
   cd "$TARGET"
-  exec claude "Set up figma-cli and connect it to my Figma. Read CLAUDE.md first."
+  exec claude "Set up figma-cli and connect it to my Figma. Read CLAUDE.md first." < /dev/tty
+elif ! command -v claude >/dev/null 2>&1; then
+  cat <<MSG
+  Claude Code is not installed yet. Install it, then start it in the project:
+      npm install -g @anthropic-ai/claude-code
+      cd "$TARGET" && claude
+  then say:  connect to Figma
+MSG
 else
   cat <<MSG
   In Terminal:
